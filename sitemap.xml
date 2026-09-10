@@ -6,4 +6,6 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- ERROR: 상품 ID를 찾을 수 없습니다! HTTP 노드에서 전달받은 원본 데이터: -->
+  <!-- {"url":"https://api-sg.aliexpress.com/sync?app_key=519762&keywords=mouse&target_currency=USD&target_language=EN&format=json&method=aliexpress.affiliate.product.query&page_no=7&page_size=1&sort=VOLUME_DESC&ship_to_country=US&sign_method=md5&timestamp=2026-09-10%2010%3A21%3A38&tracking_id=torinori5_ali&v=2.0&sign=758CCFACD5186B66B4585508B057B200","todayCategory":"mouse","selectedPage":7,"targetMarket":"US_English"}... -->
 </urlset>
