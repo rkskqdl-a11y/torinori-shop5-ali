@@ -6,6 +6,10 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- ERROR: 여전히 상품 ID를 찾을 수 없습니다. 가져온 데이터: -->
-  <!-- {"aliexpress_affiliate_product_query_response":{"resp_result":{"resp_code":405,"resp_msg":"The result is empty"},"request_id":"21410da317890362404592127","_trace_id_":"2151fd3a17890362404564147e12cf"}}... -->
+  <url>
+    <loc>https://shop5.torinori-shop.com/products/3256812478227119_2026-09-10_0</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
