@@ -1,31 +1,54 @@
-<!DOCTYPE html>
-<!-- 🌟 글로벌 표준: 언어 설정을 영어(en)로 변경 완료 -->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- 🌟 구글 서치콘솔 5호점 미국 인증 태그 (추후 발급받으면 주석 풀고 교체) -->
-    <!-- <meta name="google-site-verification" content="여기에구글코드" /> -->
-
-    <!-- 🌟 빙 웹마스터도구 5호점 인증 태그 (추후 발급받으면 주석 풀고 교체) -->
-    <!-- <meta name="msvalidate.01" content="여기에빙코드" /> -->
-
-    <title>Global Smart Shopping Deals | AliExpress Affiliate</title>
-    
-    <!-- 🌟 구글 SEO 최적화: 미국 유저들을 유입시키기 위한 영문 대문 요약 설명 -->
-    <meta name="description" content="Discover daily updated best deals, hot items, and smart shopping guide from AliExpress. Find the lowest prices and honest product reviews here.">
-
-    <!-- 🌟 해외 SNS 및 구글 검색 노출을 위한 글로벌 오픈그래프(OG) 태그 -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Global Smart Shopping Deals">
-    <meta property="og:description" content="Find the best AliExpress deals updated daily. Grab your limited-time offers and smart shopping guide now.">
+<!-- ... existing code ... -->
 </head>
 <body>
-    <!-- 🌟 구글 로봇이 대문 역할을 인식할 영문 타이틀 -->
-    <h1>Welcome to Global Smart Shopping Deals!</h1>
-    
-    <!-- n8n 자동화 로직이 매일 발행하는 상품 링크들이 이 아래에 차곡차곡 누적됩니다 -->
-    <div id="products-list"></div>
+    <!-- 🌟 구글 로봇이 대문 역할을 인식할 영문 타이틀 -->
+    <h1>Welcome to Global Smart Shopping Deals!</h1>
+    
+    <!-- 🌟 수정됨: 사이트맵을 읽어와 화면에 뿌려주는 영역 및 스크립트 추가 -->
+    <div id="products-list">
+        <p>Loading latest deals...</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 사이트맵 파일을 불러옵니다
+            fetch('/sitemap.xml')
+                .then(response => response.text())
+                .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+                .then(data => {
+                    const urls = data.querySelectorAll("url loc");
+                    const listContainer = document.getElementById("products-list");
+                    let html = "<ul style='line-height: 1.8; font-size: 16px; list-style-type: none; padding-left: 0;'>";
+                    
+                    // 최신 글이 위로 오도록 배열을 뒤집음 (역순)
+                    const urlArray = Array.from(urls).reverse();
+                    
+                    urlArray.forEach(urlNode => {
+                        const loc = urlNode.textContent;
+                        
+                        // 메인 도메인 자체는 리스트에서 제외
+                        if (loc === "https://shop3.torinori-shop.com" || loc === "https://shop3.torinori-shop.com/") return;
+                        
+                        // URL 경로에서 파일명만 추출하여 임시 제목으로 사용
+                        let title = loc.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                        if (!title) title = "Check out this deal!";
+                        
+                        // 로봇이 타고 들어갈 수 있는 a 태그(하이퍼링크) 생성
+                        html += `<li style="margin-bottom: 10px;">
+                                    <a href="${loc}" style="color: #0056b3; text-decoration: none; font-weight: bold; border-bottom: 1px solid #ccc; padding-bottom: 2px;">
+                                        👉 [Deal] ${title}
+                                    </a>
+                                 </li>`;
+                    });
+                    
+                    html += "</ul>";
+                    listContainer.innerHTML = html; // 화면에 링크 출력
+                })
+                .catch(err => {
+                    console.error("Error loading sitemap:", err);
+                    document.getElementById("products-list").innerHTML = "<p>Products update in progress...</p>";
+                });
+        });
+    </script>
 </body>
 </html>
